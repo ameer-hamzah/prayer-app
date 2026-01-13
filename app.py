@@ -3,10 +3,10 @@ from datetime import datetime
 from hijri_converter import Gregorian
 
 app = Flask(__name__)
-app.secret_key = "change-this-secret"
+app.secret_key = "madina-marriage-hall-mosque"
 
 # 🔐 CHANGE THIS PIN
-ADMIN_PIN = "1234"
+ADMIN_PIN = "1188"
 
 # Weekday names
 WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
