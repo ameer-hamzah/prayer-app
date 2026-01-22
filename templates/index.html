@@ -34,8 +34,7 @@
 
         .dates {
             text-align: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin: 10px 0;
             font-size: 14px;
             color: #333;
         }
@@ -54,12 +53,14 @@
             color: #2c3e50;
         }
 
+        /* 🔁 TABLE RTL FIX */
         table {
             margin: auto;
             border-collapse: collapse;
             width: 100%;
             max-width: 420px;
             background: white;
+            direction: rtl; /* ✅ THIS FIXES COLUMN ORDER */
         }
 
         th,
@@ -82,6 +83,12 @@
             font-size: 20px;
         }
 
+        /* ⏰ Force time back to LTR */
+        .time {
+            direction: ltr;
+            font-family: Arial, sans-serif;
+        }
+
         .maghrib {
             color: #e67e22;
             font-weight: bold;
@@ -96,7 +103,6 @@
             font-family: 'Noto Nastaliq Urdu', serif;
         }
 
-        /* Admin button */
         .admin-btn {
             width: 100%;
             max-width: 420px;
@@ -110,7 +116,6 @@
             display: block;
         }
 
-        /* Admin panel */
         .admin-panel {
             display: none;
             width: 100%;
@@ -135,7 +140,6 @@
             font-size: 16px;
         }
 
-        /* Desktop enhancements */
         @media (min-width: 768px) {
             body {
                 padding: 40px;
@@ -153,19 +157,17 @@
     <h1>اوقاتِ نماز</h1>
     <h2 class="urdu">مسجد مدینہ میرج ہال جلال پور روڈ حافظ آباد</h2>
 
-    <!-- Dates -->
     <div class="dates">
         <div>{{ english_date }}</div>
         <div class="urdu">{{ islamic_date }}</div>
     </div>
 
-    <!-- Live Clock -->
     <div class="clock" id="liveClock"></div>
 
-    <!-- Prayer Table -->
+    <!-- ✅ Prayer Table (Urdu RIGHT, Time LEFT) -->
     <table>
         <tr>
-            <th>نماز</th>
+            <th class="urdu">نماز</th>
             <th>وقت</th>
         </tr>
 
@@ -179,24 +181,22 @@
                 {% elif prayer.name == "Isha" %}عشاء
                 {% endif %}
             </td>
-            <td class="urdu {% if prayer.name == 'Maghrib' %}maghrib{% endif %}">
+
+            <td class="time {% if prayer.name == 'Maghrib' %}maghrib{% endif %}">
                 {{ prayer.formatted_time() }}
             </td>
         </tr>
         {% endfor %}
     </table>
 
-    <!-- Imam -->
     <div class="imam urdu">
         امام مسجد: حافظ غلام عباس
     </div>
 
-    <!-- Admin Button -->
     <button class="admin-btn" onclick="toggleAdmin()">
         اوقاتِ نماز اپڈیٹ کریں
     </button>
 
-    <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel">
         <form method="POST">
             <div class="urdu" style="text-align:center; margin-bottom:10px;">
@@ -215,7 +215,6 @@
         </form>
     </div>
 
-    <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     <div class="message">
@@ -228,7 +227,6 @@
     {% endif %}
     {% endwith %}
 
-    <!-- Clock + Admin JS -->
     <script>
         function updateClock() {
             const now = new Date();

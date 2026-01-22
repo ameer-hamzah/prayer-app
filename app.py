@@ -58,7 +58,7 @@ def index():
     english_date = f"{weekday}, {today.day:02d} {today.strftime('%B')} {today.year}"
 
     hijri = Gregorian(today.year, today.month, today.day).to_hijri()
-    islamic_date = f"{weekday}, {hijri.day:02d} {hijri.month_name()} {hijri.year} AH"
+    islamic_date = f"{hijri.day:02d} {hijri.month_name()} {hijri.year} AH"
 
     return render_template(
         "index.html",
